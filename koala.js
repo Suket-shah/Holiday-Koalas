@@ -11,7 +11,7 @@
 * You can use your own custom image as the source, simply type in:
 * http://koalastothemax.com?<your image url>
 * e.g.
-* http://koalastothemax.com?http://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/200px-Flag_of_the_United_Kingdom.svg.png
+* http//koalastothemax.com?http://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/200px-Flag_of_the_United_Kingdom.svg.png
 *
 * also if you want to use a custom image and want people to guess what it is
 * (without seeing the url) then you can type the url in base64 encoding like so:
@@ -338,18 +338,5 @@ var koala = {
       .on('touchend.koala', onTouchEnd)
       .on('touchcancel.koala', onTouchEnd);
   };
-  
-
-  function disableScroll() { 
-    // Get the current page scroll position 
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, 
-  
-        // if any scroll is attempted, set this to the previous value 
-        window.onscroll = function() { 
-            window.scrollTo(scrollLeft, scrollTop); 
-        }; 
-  } 
-  disableScroll();
 
 })();
