@@ -26,6 +26,7 @@ var koala = {
 };
 
 (function() {
+  // TOOD: figure out what this return function does exactly... Uses closure
   function array2d(w, h) {
     var a = [];
     return function(x, y, v) {
@@ -45,6 +46,7 @@ var koala = {
   // Find the color average of 4 colors in the RGB colorspace
   function avgColor(x, y, z, w) {
     return [
+      // 4 arrays with the rgb values to find average
       (x[0] + y[0] + z[0] + w[0]) / 4,
       (x[1] + y[1] + z[1] + w[1]) / 4,
       (x[2] + y[2] + z[2] + w[2]) / 4
@@ -60,6 +62,7 @@ var koala = {
     return !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect;
   };
 
+  // this is a function object that is used to define a circle object
   function Circle(vis, xi, yi, size, color, children, layer, onSplit) {
     this.vis = vis;
     this.x = size * (xi + 0.5);
@@ -67,15 +70,21 @@ var koala = {
     this.size = size;
     this.color = color;
     this.rgb = d3.rgb(color[0], color[1], color[2]);
+    // this probably links to childer (if any)
     this.children = children;
+    // this probably counts the layer you are on
     this.layer = layer;
+    // TODO: what does onSplit do? 
     this.onSplit = onSplit;
   }
 
+  // defining a object method to see if you can split
+  // ie if there are children you are allowed to split
   Circle.prototype.isSplitable = function() {
     return this.node && this.children
   }
 
+  // simply removes the old circle and adds all the children instaed 
   Circle.prototype.split = function() {
     if (!this.isSplitable()) return;
     d3.select(this.node).remove();
@@ -84,6 +93,7 @@ var koala = {
     this.onSplit(this);
   }
 
+  // TODO: what does this method even accomplish? 
   Circle.prototype.checkIntersection = function(startPoint, endPoint) {
     var edx = this.x - endPoint[0],
         edy = this.y - endPoint[1],
@@ -97,6 +107,7 @@ var koala = {
     return edx * edx + edy * edy <= r2 && sdx * sdx + sdy * sdy > r2;
   }
 
+  // The way you can unhide the new circles on the map
   Circle.addToVis = function(vis, circles, init) {
     var circle = vis.selectAll('.nope').data(circles)
       .enter().append('circle');
@@ -140,6 +151,7 @@ var koala = {
 
   koala.loadImage = function(imageData) {
     // Create a canvas for image data resizing and extraction
+    // A canvas is simply a container for a JS drawing. This just creates a canvas
     var canvas = document.createElement('canvas').getContext('2d');
     // Draw the image into the corner, resizing it to dim x dim
     canvas.drawImage(imageData, 0, 0, dim, dim);
@@ -156,6 +168,7 @@ var koala = {
         splitableTotal = 0,
         nextPercent = 0;
 
+    // this is the split manager
     function onSplit(circle) {
       // manage events
       var layer = circle.layer;
@@ -315,10 +328,28 @@ var koala = {
     }
 
     // Initialize interaction
-    d3.select(document.body)
+    // d3.select(document.body) returns the body of the document
+    // the .on method chained onto that act as event listeners with
+    // the previously defined events and the call back function as the second
+    // param that gets executed when the event is fired
+    d3.select('div#dots')
       .on('mousemove.koala', onMouseMove)
       .on('touchmove.koala', onTouchMove)
       .on('touchend.koala', onTouchEnd)
       .on('touchcancel.koala', onTouchEnd);
   };
+  
+
+  function disableScroll() { 
+    // Get the current page scroll position 
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, 
+  
+        // if any scroll is attempted, set this to the previous value 
+        window.onscroll = function() { 
+            window.scrollTo(scrollLeft, scrollTop); 
+        }; 
+  } 
+  disableScroll();
+
 })();
