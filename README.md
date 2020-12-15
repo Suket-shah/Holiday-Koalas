@@ -1,5 +1,9 @@
 # Introducation
 
+This code was originally created by the creators of http://koalastothemax.com this repo is adding mobile
+
+support since no pull requests are being accepted in the original repo.
+
 Exploration of pixalized koalas*.
 
 (*may include animals other than koalas)
