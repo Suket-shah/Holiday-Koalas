@@ -28,6 +28,12 @@
           Your browser does not support JavaScript or it is disabled.<br>
           JavaScript is needed to view this site.
         </noscript>
+        <div id="encourage" style="display: none">
+          <div class="msg">Keep Going!! Only 10% Left!</div>
+        </div>
+        <div id="halfway" style="display: none">
+          <div class="msg">Half Way There!</div>
+        </div>
         <div id="dots"></div>
         <div id="next" style="display: none">
           <div class="msg">
@@ -386,6 +392,16 @@
                   });
             }
             // ** here you can do another if statement for what === 'PercentClear' and give status updates on how far they are (ie 'almost there!')
+            if (what === 'PercentClear' && value >= 50) {
+              d3.select('#halfway')
+                .style('display', null);
+            }
+            if (what === 'PercentClear' && value >= 90) {
+              d3.select('#halfway')
+                .style('display', 'none');
+              d3.select('#encourage')
+                .style('display', null);
+            }
           }
 
           var img = new Image();

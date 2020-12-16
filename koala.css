@@ -49,6 +49,14 @@ a:hover {
   height: 570px;
 }
 
+#encourage .msg {
+  padding-bottom: 15px;
+}
+
+#halfway .msg {
+  padding-bottom: 15px;
+}
+
 #dot {
   width:  512px;
   height: 512px;
