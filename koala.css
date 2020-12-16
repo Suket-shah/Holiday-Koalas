@@ -57,6 +57,10 @@ a:hover {
   padding-bottom: 15px;
 }
 
+#complete .msg {
+  padding-bottom: 15px;
+}
+
 #dot {
   width:  512px;
   height: 512px;

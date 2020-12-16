@@ -28,6 +28,9 @@
           Your browser does not support JavaScript or it is disabled.<br>
           JavaScript is needed to view this site.
         </noscript>
+        <div id="complete" style="display: none">
+          <div class="msg">Completed!</div>
+        </div>
         <div id="encourage" style="display: none">
           <div class="msg">Keep Going!! Only 10% Left!</div>
         </div>
@@ -390,8 +393,15 @@
                         .text("That doesn't appear to be a valid image URL. [Hint: it should start with 'http://']")
                     }
                   });
+                  
+              // adds the completed text
+              d3.select('#encourage')
+                .style('display', 'none');
+              d3.select('#complete')
+                .style('display', null);
             }
-            // ** here you can do another if statement for what === 'PercentClear' and give status updates on how far they are (ie 'almost there!')
+
+            // adds the encouragement text 
             if (what === 'PercentClear' && value >= 50) {
               d3.select('#halfway')
                 .style('display', null);
