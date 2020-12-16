@@ -48,6 +48,7 @@
       <a href="http://d3js.org/">D3</a>
     </div>
 
+    <!-- Google Analytics Script -->
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -263,8 +264,10 @@
             location.href = '//' + location.host + location.pathname + '?' + utf8_to_b64(string);
           }
 
+          // this case is hit when you just do koalastothemax.com
           function basicLoad(location) {
             var possible = ['koalas', 'koalas1', 'koalas2', 'koalas3'];
+            // ** you can change this variable to whatever image you want. This becomes the default **
             var file = 'img/' + possible[Math.floor(Math.random() * possible.length)] + '.jpg'
             return {
               file: file,
@@ -272,7 +275,9 @@
             };
           }
 
+          // main method to parse the url
           function parseUrl(location) {
+            // location.href is an object that is in the window object. It tells you what the url of the current site is
             var href = location.href;
             var idx, param, file;
 
@@ -281,6 +286,7 @@
               return basicLoad(location); // Case 1
             }
 
+            // param now holds the string after the /?. This specifies which image to display usually
             param = href.substr(idx + 1);
             if (!/^[a-z0-9+\/]+=*$/i.test(param)) {
               // Does not look base64
@@ -330,8 +336,12 @@
             return basicLoad(location);
           }
 
+          // Gets the parsed version of the URL
+          // this is what needs to be changed in order to get cursom images
           var parse = parseUrl(location);
           if (!parse) return;
+          
+          // ** this is where the file being shown is decided **
           var file = parse.file;
           window.shownFile = parse.shownFile;
 
@@ -360,7 +370,7 @@
                     if (d3.event.keyCode !== 13) return;
                     var input = d3.select(this).property('value');
 
-                    if (input.match(/^http:\/\/.+\..+/i)) {
+                    if (input.match(/^http:\/\/.+\..+/i) || input.match(/^https:\/\/.+\..+/i)) {
                       track('Submit', input);
                       d3.select('#next div.msg').text('Thinking...');
                       d3.select(this).style('display', 'none');
@@ -375,6 +385,7 @@
                     }
                   });
             }
+            // ** here you can do another if statement for what === 'PercentClear' and give status updates on how far they are (ie 'almost there!')
           }
 
           var img = new Image();

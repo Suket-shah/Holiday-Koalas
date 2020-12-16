@@ -164,6 +164,7 @@ var koala = {
   koala.makeCircles = function(selector, colorData, onEvent) {
     onEvent = onEvent || function() {};
 
+    // splitableByLayer holds the amount of values left in each layer to be opened
     var splitableByLayer = [],
         splitableTotal = 0,
         nextPercent = 0;
@@ -172,12 +173,16 @@ var koala = {
     function onSplit(circle) {
       // manage events
       var layer = circle.layer;
+      // you need to decrement because you just popped a circle
       splitableByLayer[layer]--;
       if (splitableByLayer[layer] === 0) {
+        // this checks to see if the next section should be displayed or not
         onEvent('LayerClear', layer);
       }
 
       var percent = 1 - d3.sum(splitableByLayer) / splitableTotal;
+      console.log('percent' + percent);
+      console.log('nextPercent' + nextPercent);
       if (percent >= nextPercent) {
         onEvent('PercentClear', Math.round(nextPercent * 100));
         nextPercent += 0.05;
