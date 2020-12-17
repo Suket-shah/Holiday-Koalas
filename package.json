@@ -1,0 +1,32 @@
+{
+  "name": "koalastothemax",
+  "version": "1.0.0",
+  "description": "Holiday Koalas Version",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "node app",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Suket-shah/Holiday-Koalas.git"
+  },
+  "author": "Suket Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Suket-shah/Holiday-Koalas/issues"
+  },
+  "homepage": "https://github.com/Suket-shah/Holiday-Koalas#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
