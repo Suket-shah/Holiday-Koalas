@@ -38,6 +38,7 @@
           <div class="msg">Half Way There!</div>
         </div>
         <div id="dots"></div>
+        <!-- TODO: Remove this div -->
         <div id="next" style="display: none">
           <div class="msg">
             Awesome stuff! Now make your own and share the link.<br>
@@ -45,16 +46,28 @@
           </div>
           <input placeholder="http://imgur.com/your_favourite_image.jpg"/>
         </div>
+        <!-- Added image input field -->
+        <div id="img-upload">
+          <!-- <input type="file">
+          <img src="" alt="Uploaded image" id="upload" width="200" height="200" style="display: none"> -->
+          <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file"/>
+            <input type="submit" value="Upload">
+          </form>
+        </div>
+        
       </div>
     </div>
     <div id="footer">
-      Made with <span id="love">love</span> by
+      Originally created by
       <a href="http://vadim.ogievetsky.com">Vadim Ogievetsky</a>
       for
       <a href="http://anniealbagli.com">Annie Albagli</a>
       &nbsp; / &nbsp;
       Powered by
       <a href="http://d3js.org/">D3</a>
+      <br>
+      Upadated for mobile by Suket Shah
     </div>
 
     <!-- Google Analytics Script -->
@@ -231,7 +244,18 @@
           return;
         }
 
-        // Try you must. If there is an error report it to me.
+        // live image preview code (WILL BE DELETED)
+      //   var fileUpload = document.querySelector('#img-upload input');
+      //   fileUpload.addEventListener('change', function() {
+      //     if(this.files && this.files[0]) {
+      //       var img = document.getElementById('upload');
+      //       img.src = URL.createObjectURL(this.files[0]); 
+      //       img.style.display = "block";
+      //     }
+      //  }
+      //  );
+      
+      // Try you must. If there is an error report it to me.
         try {
           // btoa and atob do not handle utf-8 as I have discovered the hard way so they need to babied
           // See: https://developer.mozilla.org/en-US/docs/DOM/window.btoa#Unicode_Strings

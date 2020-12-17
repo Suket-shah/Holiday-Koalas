@@ -1,3 +1,8 @@
+:root {
+  --gray-bg: #d3d3d3;
+
+}
+
 html,
 body {
   margin: 0;
@@ -85,11 +90,16 @@ circle {
   color: red;
 }
 
+#img-upload {
+  margin: 15px 0;
+  padding: 10% 20%;
+  background-color: var(--gray-bg);
+  border-radius: 5px;
+}
+
 #footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  /* position: relative; */
+  margin-top: 15px;
   padding-top: 18px;
   padding-bottom: 2px;
   background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 1)), to(rgba(255, 255, 255, 0)));
