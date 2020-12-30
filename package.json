@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app",
     "dev": "nodemon index"
   },
@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/Suket-shah/Holiday-Koalas#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "tedious": "^9.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
