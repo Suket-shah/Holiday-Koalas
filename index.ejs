@@ -52,10 +52,14 @@
         <div id="img-upload">
           <!-- <input type="file">
           <img src="" alt="Uploaded image" id="upload" width="200" height="200" style="display: none"> -->
-          <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" id="file" accept=".jpeg, .png, .jpg"/>
-            <input type="submit" value="Upload">
-          </form>
+          <% if(!link) { %>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+              <input type="file" name="image" id="file" accept=".jpeg, .png, .jpg"/>
+              <input type="submit" value="Upload">
+            </form>
+          <% } else { %>
+            <h4><%=link%></h4>
+          <% } %>
         </div>
         
       </div>
@@ -406,10 +410,10 @@
           if (!parse) return;
           
           // ** this is where the file being shown is decided **
-          var imgdata = document.getElementById('img-data');
-          console.log(imgdata.getAttribute('data-img64'));
-          var file = blobToFile(base64toBlob(imgdata), 'testfile');
-          // var file = parse.file;
+          // var imgdata = document.getElementById('img-data');
+          // console.log(imgdata.getAttribute('data-img64'));
+          // var file = blobToFile(base64toBlob(imgdata), 'testfile');
+          var file = document.getElementById('img-data').getAttribute('data-img64');
           window.shownFile = parse.shownFile;
 
           if (parse.background) {

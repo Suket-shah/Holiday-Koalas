@@ -1,7 +1,8 @@
 const { SSL_OP_LEGACY_SERVER_CONNECT } = require('constants');
 const { REFUSED } = require('dns');
 const express = require('express');
-const upload = require('express-fileupload');
+// const upload = require('express-fileupload');
+const multer = require('multer');
 const path = require('path');
 const { Connection, Request} = require('tedious');
 const envio = require('dotenv').config();
@@ -12,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 
 // middlewear
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(upload());
+// app.use(upload());
 
 // DB Connections
 const config = {
@@ -31,8 +32,62 @@ const config = {
     }
 }
 
+let fileName;
+// Storage Enginer Setup
+const storage = multer.diskStorage({
+    destination: './public/uploads',
+    filename: function(req, file, cb) {
+        fileName = file.fieldname + '-' + Date.now() + path.extname(file.originalname);
+        cb(null,fileName);
+    }
+})
+
+// Init Upload
+const upload = multer({
+    storage: storage,
+    limits:{fileSize: 2000000},
+    fileFilter: function(req, file, cb) {
+        checkFileType(file, cb);
+    }
+}).single('image'); // TODO THIS NEEDS TO BE UPLOADED ONCE WE FIGURE OUT THE FILE UPLOAD FORM NAME
+
+// checks file type 
+function checkFileType(file, cb) {
+    // allowed extensions
+    const filetypes = /jpeg|jpg|png/;
+    // check extensions
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // check mime type
+    const mimetype = filetypes.test(file.mimetype);
+
+    if(mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb('Error: Please Upload JPG, JPEG, or PNG types');
+    }
+}
 function imgQuery(id) {
-    return `SELECT baseimg FROM images WHERE frontendID=${id};`
+    return `SELECT baseimg FROM images WHERE frontendID='${id}';`
+}
+
+function uploadToDb(id, path) {
+    return `INSERT INTO images (frontendID, baseimg) 
+    VALUES ('${id}', '${path}');`
+}
+
+function uploadImg(id, path) {
+    const request = new Request(
+        uploadToDb(id, path),
+        (err) => {
+            if(err) {
+                console.log(err);
+            }
+        }
+    )
+    connection.execSql(request);
+    // might need to change this if you don't want to close the connection everytime
+    connection.close;
+    return request;
 }
 
 function getImg(id) {
@@ -45,6 +100,7 @@ function getImg(id) {
         }
     );
     connection.execSql(request);
+    // might want to change this if you don't want to close the conneciton everytime
     connection.close;
     return request;
 }
@@ -67,8 +123,6 @@ connection.on("connect", err => {
       console.error(err.message);
     } else {
       console.log('connection successful');
-      let id = makeid(20);
-      console.log(id);
     }
   });
 
@@ -78,22 +132,38 @@ app.get('/:id', (req, res) => {
         if(rowCount === 0) {
             res.send("Defaults page");
         } else {
-            // this is img
-            // console.log(rows[0][0].value);
-            // res.json(rows[0][0].value);
-            res.render(path.join(__dirname, '/index.ejs'), {data: rows[0][0].value});
+            console.log(rows[0][0].value);
+            res.render(path.join(__dirname, '/index.ejs'), {data: 'uploads/' + rows[0][0].value});
         }
     })
 })
 
 app.get('/', (req, res) => {
-    res.render(path.join(__dirname, '/index.ejs'), {data: 'hello'});
+    res.render(path.join(__dirname, '/index.ejs'), {
+        data: 'astley.jpg',
+        link: null
+    });
 })
 
-app.post('/', (req, res) => {
-    if(req.files) {
-        console.log(req.files);
-    }
+app.post('/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if(err) {
+            res.send('error has occured');
+        } else {
+            if(req.file == undefined) {
+                res.send('no file selected');
+            } else {
+                let id = makeid(23);
+                console.log(id);
+                uploadImg(id, fileName);
+                res.render(path.join(__dirname, '/index.ejs'), {
+                    data: 'astley.jpg',
+                    link: `localhost:5000/${id}`
+                });
+            }
+        }
+    })
+    
 })
 
 
