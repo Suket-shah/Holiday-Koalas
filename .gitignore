@@ -9,3 +9,4 @@ faq.txt
 node_modules
 .vscode
 .env
+public/uploads

@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Suket-shah/Holiday-Koalas#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "path": "^0.12.7",

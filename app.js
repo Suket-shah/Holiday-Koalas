@@ -79,14 +79,15 @@ app.get('/:id', (req, res) => {
             res.send("Defaults page");
         } else {
             // this is img
-            console.log(rows[0][0].value);
-            res.json(rows[0][0].value);
+            // console.log(rows[0][0].value);
+            // res.json(rows[0][0].value);
+            res.render(path.join(__dirname, '/index.ejs'), {data: rows[0][0].value});
         }
     })
 })
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'));
+    res.render(path.join(__dirname, '/index.ejs'), {data: 'hello'});
 })
 
 app.post('/', (req, res) => {

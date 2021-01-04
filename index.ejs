@@ -22,6 +22,8 @@
     <link rel="stylesheet" type="text/css" href="css/koala.css?1.9.4"/>
   </head>
   <body>
+    <!-- <div data-objData=<%=data%></div> -->
+    <div id='img-data' data-img64='<%=data%>'></div>
     <div id="center">
       <div id="cont">
         <noscript>
@@ -369,13 +371,45 @@
             return basicLoad(location);
           }
 
+          // added method to convert from base64 to a blob
+          function base64toBlob(base64Data, contentType) {
+            contentType = contentType || '';
+            var sliceSize = 1024;
+            var byteCharacters = atob(base64Data);
+            var bytesLength = byteCharacters.length;
+            var slicesCount = Math.ceil(bytesLength / sliceSize);
+            var byteArrays = new Array(slicesCount);
+
+            for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+                var begin = sliceIndex * sliceSize;
+                var end = Math.min(begin + sliceSize, bytesLength);
+
+                var bytes = new Array(end - begin);
+                for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
+                    bytes[i] = byteCharacters[offset].charCodeAt(0);
+                }
+                byteArrays[sliceIndex] = new Uint8Array(bytes);
+            }
+            return new Blob(byteArrays, { type: contentType });
+          }
+
+          function blobToFile(theBlob, fileName){
+            //A Blob() is almost a File() - it's just missing the two properties below which we will add
+            theBlob.lastModifiedDate = new Date();
+            theBlob.name = fileName;
+            return theBlob;
+          }
+
           // Gets the parsed version of the URL
           // this is what needs to be changed in order to get cursom images
           var parse = parseUrl(location);
           if (!parse) return;
           
           // ** this is where the file being shown is decided **
-          var file = parse.file;
+          var imgdata = document.getElementById('img-data');
+          console.log(imgdata.getAttribute('data-img64'));
+          var file = blobToFile(base64toBlob(imgdata), 'testfile');
+          // var file = parse.file;
           window.shownFile = parse.shownFile;
 
           if (parse.background) {
