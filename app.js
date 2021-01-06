@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 
 // middlewear
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(upload());
+app.use(express.urlencoded());
 
 // DB Connections
 const config = {
@@ -146,24 +146,20 @@ app.get('/', (req, res) => {
 })
 
 app.post('/upload', (req, res) => {
+    console.log(req.body.id);
     upload(req, res, (err) => {
         if(err) {
-            res.send('error has occured');
+            res.json({status: 'failed'});
         } else {
             if(req.file == undefined) {
-                res.send('no file selected');
+                res.json({status: 'failed'})
             } else {
-                let id = makeid(23);
-                console.log(id);
-                uploadImg(id, fileName);
-                res.render(path.join(__dirname, '/index.ejs'), {
-                    data: 'astley.jpg',
-                    link: `localhost:5000/${id}`
-                });
+
+                uploadImg(req.body.id, fileName);
+                res.json({status: 'success'});
             }
         }
     })
-    
 })
 
 
