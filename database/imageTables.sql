@@ -12,5 +12,3 @@ INSERT INTO images (frontendID, baseimg)
     VALUES (1234, 'the path is here');
 
 SELECT baseimg FROM images WHERE frontendID='1234561234';
-
-DROP TABLE images;

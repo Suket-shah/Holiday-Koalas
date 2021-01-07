@@ -1,6 +1,7 @@
 :root {
   --gray-bg: #d3d3d3;
-
+  --med-blue: #61a5c2;
+  --light-blue: #89c2d9;
 }
 
 html,
@@ -118,7 +119,7 @@ circle {
   width: 200px;
   height: 50px;
   border-radius: 2px 0 0 2px;
-  background: linear-gradient(40deg, #DC143C, #800000);
+  background: linear-gradient(40deg, var(--light-blue), var(--med-blue));
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -131,12 +132,12 @@ circle {
 
 input:hover + label,
 input:focus + label {
-  background: linear-gradient(40deg, #800000, #DC143C);
+  background: linear-gradient(40deg, var(--med-blue), var(--light-blue));
   transition: transform .2s ease-out;
 }
 
 input:visited + label {
-  background: linear-gradient(40deg, #DC143C, #800000);
+  background: linear-gradient(40deg, var(--light-blue), var(--med-blue));
   transition: transform .2s ease-out;
 }
 
@@ -145,7 +146,7 @@ input:visited + label {
   width: 150px;
   height: 50px;
   border-radius: 2px 0 0 2px;
-  background: linear-gradient(40deg, #DC143C, #800000);
+  background: linear-gradient(40deg, var(--med-blue), var(--light-blue));
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);  
   color: #fff;
   font-weight: bold;
@@ -156,7 +157,7 @@ input:visited + label {
 
 #btnSubmit:hover, 
 #btnSubmit:focus {
-  background: linear-gradient(40deg, #800000, #DC143C);
+  background: linear-gradient(40deg, var(--light-blue), var(--med-blue));
   transition: transform .2s ease-out;  
 }
 
