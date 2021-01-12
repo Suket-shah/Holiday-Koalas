@@ -320,6 +320,8 @@ document.getElementById('btnSubmit').addEventListener('click', (e) => {
     if(data.status === 'success') {
       updateFormUI();
     } else {
+      console.log(data);
+      console.log(data.status);
       let errorFile = document.querySelector('.file-name'); 
       errorFile.style.color = "red";
       errorFile.innerText = "An error occured";

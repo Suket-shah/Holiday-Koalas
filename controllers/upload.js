@@ -28,6 +28,7 @@ function uploadImg(id, path) {
 exports.uploadImage = (req, res, next) => {
     upload(req, res, (err) => {
         if(err) {
+            console.log(err);
             res.json({status: 'failed'});
         } else {
             if(req.file == undefined) {
