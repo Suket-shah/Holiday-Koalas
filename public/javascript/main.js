@@ -299,7 +299,7 @@ document.getElementById('codeid').setAttribute('value', postId);
 
 
 
-document.getElementById('copyText').innerText = `localhost:5000/${postId}`;
+document.getElementById('copyText').innerText = `dotpics.live/${postId}`;
 document.getElementById('btnSubmit').addEventListener('click', (e) => {
   e.preventDefault();
 
