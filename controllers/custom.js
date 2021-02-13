@@ -24,7 +24,10 @@ exports.customImage = (req, res, next) => {
     let result = getImg(req.params.id);
     result.on('doneInProc', async (rowCount, more, rows) => {
         if(rowCount === 0) {
-            res.send("Defaults page");
+            res.render(path.join(__dirname, '../index.ejs'), {
+                data: 'koalas1.jpg',
+                link: null
+            });  
         } else {
             res.render(path.join(__dirname, '../index.ejs'), {
                 data: 'uploads/' + rows[0][0].value

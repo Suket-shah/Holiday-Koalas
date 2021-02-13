@@ -120,7 +120,7 @@ var koala = {
         .attr('r', 4)
         .attr('fill', '#ffffff')
           .transition()
-          .duration(1000);
+          .duration(2000);
     } else {
       // Setup the initial state of the opened circles
       circle = circle
@@ -130,7 +130,7 @@ var koala = {
         .attr('fill', function(d) { return String(d.parent.rgb); })
         .attr('fill-opacity', 0.68)
           .transition()
-          .duration(300);
+          .duration(250);
     }
 
     // Transition the to the respective final state

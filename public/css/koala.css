@@ -172,6 +172,22 @@ input:visited + label {
   display: none;
 }
 
+.copy-border {
+  display: flex;
+  justify-content: space-between;
+}
+
+#copyTextArea {
+  display: none;
+}
+
+#copyButton {
+  /* margin-left: 15%; */
+  float: right;
+  color: #2a9d8f;
+  cursor: pointer;
+}
+
 #codeid {
   display: none;
 }

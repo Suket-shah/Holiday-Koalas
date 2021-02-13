@@ -27,6 +27,7 @@
     <script type="text/javascript" src="javascript/d3.min.js?1.9.4"></script>
     <script type="text/javascript" src="javascript/koala.js?1.9.4"></script>
     <script type="text/javascript" src="javascript/inobounce.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <!--<![endif]-->
     <link rel="stylesheet" type="text/css" href="css/koala.css?1.9.4"/>
   </head>
@@ -62,7 +63,12 @@
           <div class="copy-area">
             <h3 class="from-title">Sharing Link</h3>
             <div class="copy-border">
-              <span class="file-name" id="copyText">Copy Text</span>
+              <!-- <span class="file-name" id="copyText">Copy Text</span> -->
+              <a href="#" class="file-name" id="copyText">Copy Text</a>
+              <textarea name="copy-text-area" id="copyTextArea" cols="1" rows="1" ></textarea>
+              <a id="copyButton">
+                <i class="far fa-copy"></i>
+              </a>
             </div>
           </div>
         </div>

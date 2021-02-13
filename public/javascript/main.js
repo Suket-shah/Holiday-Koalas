@@ -297,9 +297,10 @@ function makeid(length) {
 var postId = makeid(23);
 document.getElementById('codeid').setAttribute('value', postId);
 
+let copyField = document.getElementById('copyText');
 
-
-document.getElementById('copyText').innerText = `dotpics.live/${postId}`;
+copyField.innerText = `http://dotpics.live/${postId}`;
+copyField.href = `http://dotpics.live/${postId}`; 
 document.getElementById('btnSubmit').addEventListener('click', (e) => {
   e.preventDefault();
 
@@ -320,11 +321,9 @@ document.getElementById('btnSubmit').addEventListener('click', (e) => {
     if(data.status === 'success') {
       updateFormUI();
     } else {
-      console.log(data);
-      console.log(data.status);
       let errorFile = document.querySelector('.file-name'); 
       errorFile.style.color = "red";
-      errorFile.innerText = "An error occured";
+      errorFile.innerText = "An error occured: file size too large";
     }
   });
   
@@ -356,31 +355,28 @@ fileElement.addEventListener('change', (e) => {
   document.querySelector('.file-name').textContent = fileNameAndSize;
 });
 
+function copyToClipboard(str) {
+  const el = document.createElement('textarea');
+  el.value = str;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);  
+}
 
-// // copy button code TODO NOT WORKING
-// var copyButton = document.getElementById('copy-button');
-// copyButton.addEventListener('click', copyToClipboard("copyText"));
-// function copyToClipboard(elementId) {
-//   console.log('called');
-//   // Create a "hidden" input
-//   var aux = document.createElement("input");
+let copyButton = document.getElementById('copyButton'); 
+copyButton.addEventListener('click', (e) => {
+  copyToClipboard(document.getElementById('copyText').innerText);
+  copyButton.style.color = '#e76f51';
+  document.querySelector('.copy-area .from-title').innerText = 'Link Copied!';
+});
 
-//   // Assign it the value of the specified element
-//   aux.setAttribute("value", document.getElementById(elementId).innerHTML);
-
-//   // Append it to the body
-//   document.body.appendChild(aux);
-
-//   // Highlight its content
-//   aux.select();
-
-//   // Copy the highlighted text
-//   document.execCommand("copy");
-
-//   // Remove it from the body
-//   document.body.removeChild(aux);
-
-// }
+copyButton.addEventListener('mouseover', (e) => {
+  copyButton.style.color = '#e76f51';
+});
+copyButton.addEventListener('mouseleave', (e) => {
+  copyButton.style.color = '#2a9d8f';
+})
 
   // Local download functionality
   var saveNumber = 0;
