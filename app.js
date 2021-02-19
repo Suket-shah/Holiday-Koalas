@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000;
 
 // middlewear
 app.use( express.static(path.resolve('public')));
+
+app.set('view engine', 'ejs');
 app.use(express.urlencoded());
 
 glob.sync('./routes/*.js').forEach((file) => {
